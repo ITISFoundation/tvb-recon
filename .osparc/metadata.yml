@@ -1,0 +1,62 @@
+name: tvb-recon
+key: simcore/services/comp/tvb-recon
+type: computational
+integration-version: 1.0.0
+version: 1.0.0
+description: The Virtual Brain Reconstruction pipeline on oSPARC
+contact: iavarone@itis.swiss
+authors:
+  - name: Elisabetta Iavarone
+    email: iavarone@itis.swiss
+    affiliation: IT'IS Foundation
+inputs:
+  input_1:
+    displayOrder: 1
+    label: input_1_label
+    description: The input 1 description
+    type: string
+    defaultValue: some_value(optional)
+    fileToKeyMap:
+      somefilename.ext: input_1
+  input_2:
+    displayOrder: 2
+    label: input_2_label
+    description: The input 2 description
+    type: string
+    defaultValue: some_value(optional)
+    fileToKeyMap:
+      somefilename.ext: input_2
+  input_3:
+    displayOrder: 3
+    label: input_3_label
+    description: The input 3 description
+    type: string
+    defaultValue: some_value(optional)
+    fileToKeyMap:
+      somefilename.ext: input_3
+  input_4:
+    displayOrder: 4
+    label: input_4_label
+    description: The input 4 description
+    type: string
+    defaultValue: some_value(optional)
+    fileToKeyMap:
+      somefilename.ext: input_4
+  input_5:
+    displayOrder: 5
+    label: input_5_label
+    description: The input 5 description
+    type: string
+    defaultValue: some_value(optional)
+    fileToKeyMap:
+      somefilename.ext: input_5
+  
+outputs:
+  output_1:
+    displayOrder: 1
+    label: output_1_label
+    description: The input 1 description
+    type: string
+    fileToKeyMap:
+      somefilename.ext: output_1
+  

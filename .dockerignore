@@ -1,0 +1,46 @@
+## Common.dockerignore
+
+*
+!src/
+!service.cli/
+!docker/
+
+# Common
+README.md
+CHANGELOG.md
+docker-compose.yml
+Dockerfile
+
+# git
+.git
+.gitattributes
+.gitignore
+.git*
+
+## Common.gitignore
+
+# output folders
+build/
+output/
+out/
+
+# temporary folders
+tmp/
+
+# explicit mark
+*ignore*
+.tmp*
+
+# vscode configuration
+.vscode
+
+# make outputs
+pytest_*.xml
+.compose*
+
+# validation folder
+!validation/**/*
+# docker ignore
+!.dockerignore
+# git ignore
+!.gitignore
