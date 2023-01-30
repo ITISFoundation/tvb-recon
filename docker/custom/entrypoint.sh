@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -o errexit
 set -o nounset
 
@@ -55,7 +55,8 @@ else
     adduser "$SC_USER_NAME" "$CONT_GROUPNAME"
 
     echo "changing $SC_USER_NAME:$SC_USER_NAME ($SC_USER_ID:$SC_USER_ID) to $SC_USER_NAME:$CONT_GROUPNAME ($HOST_USERID:$HOST_GROUPID)"
-    usermod --uid "$HOST_USERID" --gid "$HOST_GROUPID" "$SC_USER_NAME"
+    # Causing error because group 1000 already exists in base image
+    #usermod --uid "$HOST_USERID" --gid "$HOST_GROUPID" "$SC_USER_NAME"
     
     echo "Changing group properties of files around from $SC_USER_ID to group $CONT_GROUPNAME"
     find / \( -path /proc -o -path /sys \) -prune -o -group "$SC_USER_ID" -exec chgrp --no-dereference "$CONT_GROUPNAME" {} \;
@@ -63,6 +64,9 @@ else
     echo "Changing ownership properties of files around from $SC_USER_ID to group $CONT_GROUPNAME"
     find / \( -path /proc -o -path /sys \) -prune -o -user "$SC_USER_ID" -exec chown --no-dereference "$SC_USER_NAME" {} \;
 fi
+
+# Needed so that user scu can run `sudo condor_master`
+echo 'scu ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 echo "Starting $* ..."
 echo "  $SC_USER_NAME rights    : $(id "$SC_USER_NAME")"

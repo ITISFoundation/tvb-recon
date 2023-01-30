@@ -8,7 +8,7 @@
 #
 # author: Elisabetta Iavarone
 
-SHELL = /bin/sh
+SHELL = /bin/bash
 .DEFAULT_GOAL := help
 
 export VCS_URL    := $(shell git config --get remote.origin.url 2> /dev/null || echo unversioned repo)

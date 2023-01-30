@@ -1,8 +1,8 @@
-# tvb-recon
+# TVB Reconstruction Pipeline on o<sup>2</sup>S<sup>2</sup>PARC
 
-The Virtual Brain Reconstruction pipeline on oSPARC
+This repository contains the source code for the o<sup>2</sup>S<sup>2</sup>PARC service of the The Virtual Brain Reconstruction pipeline (tvb-recon). Please visit the [tvb-recon repository](https://github.com/the-virtual-brain/tvb-recon) for more information.
 
-## Usage
+## How to create and test the Service
 
 ```console
 $ make help
@@ -15,15 +15,13 @@ $ source .venv/bin/activate
 (.venv)$ make tests
 ```
 
-## Workflow
+## Some important files
 
-1. The source code shall be copied to the [src](tvb-recon/src/tvb_recon) folder.
-1. The [Dockerfile](tvb-recon/src/Dockerfile) shall be modified to compile the source code.
+1. The [Dockerfile](tvb-recon/src/Dockerfile) was modified starting from the base `tvb-recon` Docker image
 2. The [.osparc](.osparc) is the configuration folder and source of truth for metadata: describes service info and expected inputs/outputs of the service.
-3. The [execute](tvb-recon/service.cli/execute) shell script shall be modified to run the service using the expected inputs and retrieve the expected outputs.
-4. The test input/output shall be copied to [validation](tvb-recon/validation).
+3. The [execute](tvb-recon/service.cli/execute) shell script was modified to run the service using the expected inputs and retrieve the expected outputs.
+4. The test input/output were not included with the service code, since they are large files. Ask the mainteners for more information.
 5. The service docker image may be built and tested as ``make build tests`` (see usage above)
-
 
 
 ---

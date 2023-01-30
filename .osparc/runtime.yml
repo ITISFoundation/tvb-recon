@@ -1,0 +1,11 @@
+restart-policy: no-restart
+settings:
+  - name: Resources
+    type: Resources
+    value:
+      Limits:
+        NanoCPUs: 6000000000
+        MemoryBytes: 17179869184
+      Reservations:
+        NanoCPUs: 4000000000 
+        MemoryBytes: 6442450944 # 6 Gigabytes as recommended on https://github.com/the-virtual-brain/tvb-recon

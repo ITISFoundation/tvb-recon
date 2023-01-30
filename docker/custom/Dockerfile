@@ -1,5 +1,5 @@
-# TODO: Please set your custom image here and adapt the Dockerfile/entrypoint.sh accordingly
-FROM ubuntu:latest as base 
+# Start from existing image and adapt the Dockerfile/entrypoint.sh accordingly
+FROM thevirtualbrain/tvb-recon as base 
 #
 #  USAGE:
 #     cd services/tvb-recon
@@ -9,49 +9,20 @@ FROM ubuntu:latest as base
 
 LABEL maintainer=elisabettai
 
+USER root
 # simcore-user uid=8004(${SC_USER_NAME}) gid=8004(${SC_USER_NAME}) groups=8004(${SC_USER_NAME})
 ENV SC_USER_ID 8004
 ENV SC_USER_NAME scu
-RUN adduser --uid ${SC_USER_ID} --disabled-password --gecos "" --shell /bin/sh --home /home/${SC_USER_NAME} ${SC_USER_NAME}
+RUN adduser --uid ${SC_USER_ID} --disabled-password --gecos "" --shell /bin/bash --home /home/${SC_USER_NAME} ${SC_USER_NAME}
 
 RUN apt-get update \
     && apt-get -y install --no-install-recommends \
     jq \
+    git \
+    zip \
+    unzip \
     && rm --recursive --force /var/lib/apt/lists/*
 
-# -------------------------- Build stage -------------------
-# Installs build/package management tools and third party dependencies
-#
-# + /build             WORKDIR
-#
-
-FROM base as build
-
-ENV SC_BUILD_TARGET build
-
-# ------------------------------------------------------------------------------------
-#TODO:
-# uncomment and adapt if build dependencies shall be installed
-#RUN apt-get update \
-# && apt-get -y install --no-install-recommends \
-# gcc \
-# git \
-# && rm -rf /var/lib/apt/lists/*
-
-# uncomment and adapt if python necessary
-#RUN $SC_PIP install --upgrade pip wheel setuptools
-# ------------------------------------------------------------------------------------
-
-WORKDIR /build
-# defines the output of the build
-RUN mkdir --parents /build/bin
-# copy src code
-COPY --chown=${SC_USER_NAME}:${SC_USER_NAME} src/tvb_recon src/tvb_recon
-# ------------------------------------------------------------------------------------
-#TODO:
-# uncomment and adapt if build steps are necessary
-# RUN cp -R src/tvb_recon/* /build/bin
-# ------------------------------------------------------------------------------------
 
 # --------------------------Production stage -------------------
 # Final cleanup up to reduce image size and startup setup
@@ -71,16 +42,8 @@ ENV SC_BOOT_MODE production
 ENV INPUT_FOLDER="/input" \
     OUTPUT_FOLDER="/output"
 
-
 WORKDIR /home/${SC_USER_NAME}
 
-# ------------------------------------------------------------------------------------
-#TODO:
-# uncomment and adapt to install runtime dependencies
-#RUN apt-get update \
-# && apt-get -y install --no-install-recommends \
-# && rm -rf /var/lib/apt/lists/*
-# ------------------------------------------------------------------------------------
 
 # copy docker bootup scripts
 COPY --chown=${SC_USER_NAME}:${SC_USER_NAME} docker/custom/*.sh docker/
@@ -89,12 +52,8 @@ COPY --chown=${SC_USER_NAME}:${SC_USER_NAME} service.cli/ service.cli/
 # necessary to be able to call run directly without sh in front
 ENV PATH="/home/${SC_USER_NAME}/service.cli:${PATH}"
 
-# copy binaries from build
-COPY --from=build --chown=${SC_USER_NAME}:${SC_USER_NAME} /build/bin tvb_recon
-
 # ------------------------------------------------------------------------------------
-#TODO:
-# uncomment and provide a healtchecker if possible
+# # uncomment and provide a healtchecker if possible
 # HEALTHCHECK --interval=30s \
 #             --timeout=120s \
 #             --start-period=30s \
@@ -102,5 +61,5 @@ COPY --from=build --chown=${SC_USER_NAME}:${SC_USER_NAME} /build/bin tvb_recon
 #             CMD ["healthchecker app"]
 # ------------------------------------------------------------------------------------
 
-ENTRYPOINT [ "/bin/sh", "docker/entrypoint.sh", "/bin/sh", "-c" ]
+ENTRYPOINT [ "/bin/bash", "docker/entrypoint.sh", "/bin/bash"]
 CMD ["run"]
