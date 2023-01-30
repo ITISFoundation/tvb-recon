@@ -17,13 +17,13 @@ jobs:
     strategy:
       matrix:
         python: [3.9]
-        os: [ubuntu-22.04]
+        os: [ubuntu-20.04]
       fail-fast: false
     steps:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 50000
+          root-reserve-mb: 45000
           #swap-size-mb: 1024
           remove-dotnet: 'true'
           remove-android: 'true'
