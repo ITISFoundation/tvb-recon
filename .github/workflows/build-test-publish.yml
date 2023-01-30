@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         python: [3.9]
-        os: [ubuntu-20.04]
+        os: [ubuntu-22.04]
       fail-fast: false
     steps:
       - name: Maximize build space
@@ -37,6 +37,8 @@ jobs:
           # cache-dependency-path: "**/requirements*.txt"
       - name: show versions
         run: .github/show_system_versions.bash
+      - name: prune docker images
+        run: docker image prune -a
       - name: set owner variable
         run: echo "OWNER=${GITHUB_REPOSITORY%/*}" >> $GITHUB_ENV
       - name: set docker image tag
