@@ -28,7 +28,7 @@ jobs:
           # cache: "pip"
           # cache-dependency-path: "**/requirements*.txt"
       - name: show versions
-        run: ./scripts/show_system_versions.bash
+        run: ./workflows/show_system_versions.bash
       - name: set owner variable
         run: echo "OWNER=${GITHUB_REPOSITORY%/*}" >> $GITHUB_ENV
       - name: set docker image tag
@@ -47,7 +47,7 @@ jobs:
       - if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         name: push
         run: |
-          ./scripts/dockerhub_login.bash
+          ./workflows/dockerhub_login.bash
           make push
       - if: github.event_name == 'push' && github.ref != 'refs/heads/master'
         name: push

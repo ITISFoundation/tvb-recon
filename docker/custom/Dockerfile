@@ -52,14 +52,5 @@ COPY --chown=${SC_USER_NAME}:${SC_USER_NAME} service.cli/ service.cli/
 # necessary to be able to call run directly without sh in front
 ENV PATH="/home/${SC_USER_NAME}/service.cli:${PATH}"
 
-# ------------------------------------------------------------------------------------
-# # uncomment and provide a healtchecker if possible
-# HEALTHCHECK --interval=30s \
-#             --timeout=120s \
-#             --start-period=30s \
-#             --retries=3 \
-#             CMD ["healthchecker app"]
-# ------------------------------------------------------------------------------------
-
 ENTRYPOINT [ "/bin/bash", "docker/entrypoint.sh", "/bin/bash"]
 CMD ["run"]
