@@ -38,6 +38,8 @@ jobs:
       #  run: make devenv
       - name: get current image if available
         run: make pull-latest || true
+      - name: service-integration
+        uses: docker://itisfoundation/service-integration:master-github-latest
       - name: build
         run: |
           make build
