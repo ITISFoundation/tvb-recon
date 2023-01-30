@@ -23,9 +23,10 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 35000
+          #root-reserve-mb: 35000
           #swap-size-mb: 1024
           remove-dotnet: 'true'
+          overprovision-lvm: 'true'
       - uses: actions/checkout@v3
       - name: setup python environment
         uses: actions/setup-python@v4
