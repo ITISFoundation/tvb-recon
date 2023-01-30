@@ -26,7 +26,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: "pip"
-          cache-dependency-path: "**/requirements*.txt"
+          # cache-dependency-path: "**/requirements*.txt"
       - name: show versions
         run: ./scripts/show_system_versions.bash
       - name: set owner variable
@@ -34,8 +34,8 @@ jobs:
       - name: set docker image tag
         if: github.ref != 'refs/heads/master'
         run: echo "DOCKER_IMAGE_TAG=${GITHUB_REF##*/} >> $GITHUB_ENV
-      - name: set dev environs
-        run: make devenv
+      # - name: set dev environs
+      #  run: make devenv
       - name: get current image if available
         run: make pull-latest || true
       - name: build
