@@ -29,25 +29,27 @@ jobs:
           remove-android: 'true'
           remove-haskell: 'true'
       - uses: actions/checkout@v3
-      - name: setup python environment
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python }}
+      #- name: setup python environment
+      #  uses: actions/setup-python@v4
+      #  with:
+      #    python-version: ${{ matrix.python }}
           # cache: "pip"
           # cache-dependency-path: "**/requirements*.txt"
       - name: show versions
         run: .github/show_system_versions.bash
-      - name: prune docker images
-        run: docker image prune -af
+      - name: prune docker
+        run: docker system prune -f --volumes
       - name: set owner variable
         run: echo "OWNER=${GITHUB_REPOSITORY%/*}" >> $GITHUB_ENV
       - name: set docker image tag
         if: github.ref != 'refs/heads/master'
         run: echo "DOCKER_IMAGE_TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
+      - name: check disk space before image build
+        run: df -h
       # - name: set dev environs
       #  run: make devenv
-      - name: get current image if available
-        run: make pull-latest || true
+      # - name: get current image if available
+      #  run: make pull-latest || true
       - name: build
         run: |
           make build
