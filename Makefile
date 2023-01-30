@@ -60,6 +60,7 @@ endef
 .PHONY: build build-devel build-nc build-devel-nc
 build build-devel build-nc build-devel-nc: docker-compose.yml service.cli/run ## builds image
 	# building image local/${DOCKER_IMAGE_NAME}...
+	docker pull itisfoundation/service-integration:master-github-latest 
 	@$(call _docker_compose_build)
 
 define show-meta
