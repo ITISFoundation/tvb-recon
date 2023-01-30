@@ -39,7 +39,6 @@ jobs:
       - name: get current image if available
         run: make pull-latest || true
       - name: build
-        uses: itisfoundation/service-integration:master-github-latest
         run: |
           make build
           make info-build
