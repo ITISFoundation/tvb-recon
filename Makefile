@@ -45,6 +45,7 @@ service.cli/run: $(METADATA) ## generates run from metadata
 
 docker-compose.yml: $(METADATA) ## generates docker-compose
 	# Injects metadata from $< as labels
+	docker pull itisfoundation/service-integration:master-github-latest
 	@$(OSPARC_DIR)/bin/ooil.bash compose --to-spec-file $@ --metadata $<
 
 
@@ -59,8 +60,7 @@ endef
 
 .PHONY: build build-devel build-nc build-devel-nc
 build build-devel build-nc build-devel-nc: docker-compose.yml service.cli/run ## builds image
-	# building image local/${DOCKER_IMAGE_NAME}...
-	docker pull itisfoundation/service-integration:master-github-latest 
+	# building image local/${DOCKER_IMAGE_NAME}... 
 	@$(call _docker_compose_build)
 
 define show-meta
