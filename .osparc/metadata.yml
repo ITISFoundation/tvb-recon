@@ -2,7 +2,7 @@ name: TVB Reconstruction
 key: simcore/services/comp/tvb-recon
 thumbnail: https://camo.githubusercontent.com/46bdb0bc48ec33aaf6f3651881138bef4f6b5c14991e46f98bd0cd6fbed6e794/68747470733a2f2f6172732e656c732d63646e2e636f6d2f636f6e74656e742f696d6167652f312d73322e302d53313035333831313931353030323530352d6772312e6a7067
 type: computational
-integration-version: 1.0.0
+integration-version: 2.0.0
 version: 1.0.0
 description:
   The Virtual Brain Reconstruction pipeline on oSPARC. For more information please visit the official 
