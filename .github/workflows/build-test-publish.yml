@@ -42,13 +42,14 @@ jobs:
         run: .github/show_system_versions.bash
       - name: change docker config
         run: |
-          sudo service docker stop 
-          sudo echo "{" >> /etc/docker/daemon.json
-          sudo echo "'data-root': $GITHUB_WORKSPACE" >> /etc/docker/daemon.json
-          sudo echo "}" >> /etc/docker/daemon.json
-          sudo cp -rp /var/lib/docker/* $GITHUB_WORKSPACE
-          sudo mv /var/lib/docker /var/lib/docker.old
-          sudo service docker start
+          sudo su
+          service docker stop 
+          echo "{" >> /etc/docker/daemon.json
+          echo "'data-root': $GITHUB_WORKSPACE" >> /etc/docker/daemon.json
+          echo "}" >> /etc/docker/daemon.json
+          cp -rp /var/lib/docker/* $GITHUB_WORKSPACE
+          mv /var/lib/docker /var/lib/docker.old
+          service docker start
           docker info | grep "Docker Root"
       # - name: prune docker
       #   run: docker image prune -af
