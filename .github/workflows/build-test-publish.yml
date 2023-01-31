@@ -23,7 +23,7 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 50000
+          #root-reserve-mb: 50000
           #swap-size-mb: 1024
           remove-dotnet: 'true'
           remove-android: 'true'
@@ -38,7 +38,7 @@ jobs:
       - name: show versions
         run: .github/show_system_versions.bash
       - name: prune docker
-        run: docker system prune -f --volumes
+        run: docker image prune -af
       - name: set owner variable
         run: echo "OWNER=${GITHUB_REPOSITORY%/*}" >> $GITHUB_ENV
       - name: set docker image tag
