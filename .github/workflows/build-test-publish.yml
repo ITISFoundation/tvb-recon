@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
     steps:
       - name: create new dir
-        run: mkdir -p /mnt/docker
+        run: sudo mkdir -p /mnt/docker
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
