@@ -26,7 +26,6 @@ jobs:
         uses: easimon/maximize-build-space@master
         with:
           root-reserve-mb: 4096
-          #swap-size-mb: 1024
           remove-dotnet: 'true'
           remove-android: 'true'
           remove-haskell: 'true'
@@ -68,15 +67,17 @@ jobs:
         run: |
           make build
           make info-build
-      # - name: test
-      #   run: make tests
-      # - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-      #   name: push
-      #   run: |
-      #     .github/dockerhub_login.bash
-      #     make push
-      # - if: github.event_name == 'push' && github.ref != 'refs/heads/main'
-      #   name: push
-      #   run: |
-      #     .github/dockerhub_login.bash
-      #     make push-version
+      - name: test
+        run: make tests
+      - name: print docker image info
+        run: docker images
+      - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        name: push
+        run: |
+          .github/dockerhub_login.bash
+          make push
+      - if: github.event_name == 'push' && github.ref != 'refs/heads/main'
+        name: push
+        run: |
+          .github/dockerhub_login.bash
+          make push-version
