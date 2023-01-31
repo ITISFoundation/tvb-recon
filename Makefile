@@ -88,6 +88,7 @@ test tests:  ## runs validation tests
 
 .PHONY: version-service-patch version-service-minor version-service-major
 version-service-patch version-service-minor version-service-major: $(METADATA) ## kernel/service versioning as patch
+	docker pull itisfoundation/service-integration:master-github-latest
 	$(OSPARC_DIR)/bin/ooil.bash bump-version --metadata-file $<  --upgrade $(subst version-service-,,$@)
 	# syncing metadata upstream
 	@$(MAKE) VERSION
