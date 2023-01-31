@@ -46,7 +46,7 @@ jobs:
           echo "{" | sudo tee -a /etc/docker/daemon.json
           echo "'data-root': $GITHUB_WORKSPACE" | sudo tee -a /etc/docker/daemon.json
           echo "}" | sudo tee -a /etc/docker/daemon.json
-          cp -rp /var/lib/docker/* $GITHUB_WORKSPACE
+          sudo cp -rp /var/lib/docker/* $GITHUB_WORKSPACE
           sudo mv /var/lib/docker /var/lib/docker.old
           sudo service docker start
           docker info | grep "Docker Root"
@@ -55,7 +55,7 @@ jobs:
       - name: set owner variable
         run: echo "OWNER=${GITHUB_REPOSITORY%/*}" >> $GITHUB_ENV
       - name: set docker image tag
-        if: github.ref != 'refs/heads/master'
+        if: github.ref != 'refs/heads/main'
         run: echo "DOCKER_IMAGE_TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
       - name: check disk space before image build
         run: df -h
@@ -69,12 +69,12 @@ jobs:
           make info-build
       # - name: test
       #   run: make tests
-      # - if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+      # - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       #   name: push
       #   run: |
       #     .github/dockerhub_login.bash
       #     make push
-      # - if: github.event_name == 'push' && github.ref != 'refs/heads/master'
+      # - if: github.event_name == 'push' && github.ref != 'refs/heads/main'
       #   name: push
       #   run: |
       #     .github/dockerhub_login.bash
