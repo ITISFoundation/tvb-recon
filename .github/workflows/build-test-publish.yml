@@ -43,8 +43,9 @@ jobs:
       - name: change docker default root path
         run: |
           docker info | grep "Docker Root"
-          sudo service docker stop 
-          sudo sed -i "s|}|,'data-root': '${GITHUB_WORKSPACE}'}|" /etc/docker/daemon.json
+          sudo service docker stop
+          mkdir -p $GITHUB_WORKSPACE/docker
+          sudo sed -i "s|}|,'data-root': '${GITHUB_WORKSPACE}/docker'}|" /etc/docker/daemon.json
           sudo sed -i "s/'/\"/g" /etc/docker/daemon.json
           sudo cat /etc/docker/daemon.json
           sudo service docker start
