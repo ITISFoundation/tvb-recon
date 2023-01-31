@@ -1,0 +1,27 @@
+
+#!/bin/sh
+#---------------------------------------------------------------
+# AUTO-GENERATED CODE, do not modify this will be overwritten!!!
+#---------------------------------------------------------------
+# shell strict mode:
+set -o errexit
+set -o nounset
+IFS=$(printf '\n\t')
+cd "$(dirname "$0")"
+json_input=$INPUT_FOLDER/inputs.json
+    
+INPUT_1=$INPUT_FOLDER/t1_input.nii.gz
+export INPUT_1
+INPUT_2=$INPUT_FOLDER/dwi_raw.nii
+export INPUT_2
+INPUT_3=$INPUT_FOLDER/dwi.bvec
+export INPUT_3
+INPUT_4=$INPUT_FOLDER/dwi.bval
+export INPUT_4
+INPUT_5=$INPUT_FOLDER/input_5
+export INPUT_5
+INPUT_6=$INPUT_FOLDER/input_6
+export INPUT_6
+
+exec execute.sh
+    
