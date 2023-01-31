@@ -44,7 +44,8 @@ jobs:
         run: |
           docker info | grep "Docker Root"
           sudo service docker stop 
-          sudo sed -i "s|}|,'data-root': ${HOME}}|" /etc/docker/daemon.json
+          sudo sed -i "s|}|,'data-root': '${HOME}'}|" /etc/docker/daemon.json
+          sudo sed -i "s/'/\"/g" /etc/docker/daemon.json
           sudo cat /etc/docker/daemon.json
           sudo service docker start
           docker info | grep "Docker Root"
