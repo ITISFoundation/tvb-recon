@@ -41,24 +41,32 @@ jobs:
       - name: show versions
         run: .github/show_system_versions.bash
       - name: change docker config
-        run: cat /lib/systemd/system/docker.service
+        run: |
+          service docker stop 
+          echo "{" >> /etc/docker/daemon.json
+          echo "'data-root': $GITHUB_WORKSPACE" >> /etc/docker/daemon.json
+          echo "}"
+          cp -rp /var/lib/docker/* $GITHUB_WORKSPACE
+          mv /var/lib/docker /var/lib/docker.old
+          service docker start
+          docker info | grep "Docker Root"
       # - name: prune docker
       #   run: docker image prune -af
-      # - name: set owner variable
-      #   run: echo "OWNER=${GITHUB_REPOSITORY%/*}" >> $GITHUB_ENV
-      # - name: set docker image tag
-      #   if: github.ref != 'refs/heads/master'
-      #   run: echo "DOCKER_IMAGE_TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
-      # - name: check disk space before image build
-      #   run: df -h
-      # # - name: set dev environs
-      # #  run: make devenv
-      # # - name: get current image if available
-      # #  run: make pull-latest || true
-      # - name: build
-      #   run: |
-      #     make build
-      #     make info-build
+      - name: set owner variable
+        run: echo "OWNER=${GITHUB_REPOSITORY%/*}" >> $GITHUB_ENV
+      - name: set docker image tag
+        if: github.ref != 'refs/heads/master'
+        run: echo "DOCKER_IMAGE_TAG=${GITHUB_REF##*/}" >> $GITHUB_ENV
+      - name: check disk space before image build
+        run: df -h
+      # - name: set dev environs
+      #  run: make devenv
+      # - name: get current image if available
+      #  run: make pull-latest || true
+      - name: build
+        run: |
+          make build
+          make info-build
       # - name: test
       #   run: make tests
       # - if: github.event_name == 'push' && github.ref == 'refs/heads/master'
