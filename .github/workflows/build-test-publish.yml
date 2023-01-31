@@ -47,8 +47,6 @@ jobs:
           echo "{" | sudo tee -a /etc/docker/daemon.json
           echo "'data-root': $GITHUB_WORKSPACE" | sudo tee -a /etc/docker/daemon.json
           echo "}" | sudo tee -a /etc/docker/daemon.json
-          sudo cp -rp /var/lib/docker/* $GITHUB_WORKSPACE
-          sudo mv /var/lib/docker /var/lib/docker.old
           sudo service docker start
           docker info | grep "Docker Root"
       # - name: prune docker
