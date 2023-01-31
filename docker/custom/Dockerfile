@@ -1,5 +1,5 @@
 # Start from existing image and adapt the Dockerfile/entrypoint.sh accordingly
-FROM thevirtualbrain/tvb-recon as base 
+FROM thevirtualbrain/tvb-recon:latest as base 
 #
 #  USAGE:
 #     cd services/tvb-recon
