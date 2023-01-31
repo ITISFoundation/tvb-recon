@@ -44,6 +44,7 @@ jobs:
         run: |
           docker info | grep "Docker Root"
           sudo service docker stop 
+          sudo rm -rf /etc/docker/daemon.json
           echo "{" | sudo tee -a /etc/docker/daemon.json
           echo ""data-root": $GITHUB_WORKSPACE" | sudo tee -a /etc/docker/daemon.json
           echo "}" | sudo tee -a /etc/docker/daemon.json
