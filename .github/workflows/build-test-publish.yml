@@ -40,8 +40,9 @@ jobs:
         run: .github/show_system_versions.bash
       - name: show versions
         run: .github/show_system_versions.bash
-      - name: change docker config
+      - name: change docker default root path
         run: |
+          docker info | grep "Docker Root"
           sudo service docker stop 
           echo "{" | sudo tee -a /etc/docker/daemon.json
           echo "'data-root': $GITHUB_WORKSPACE" | sudo tee -a /etc/docker/daemon.json
