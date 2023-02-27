@@ -52,7 +52,7 @@ python run_sequentially.py "1"
 
 
 # Retrieve outputs, zip it and move it to output folder
-zip -r ${OUTPUT_FOLDER}/tvb.zip /home/submitter/data/TVB1/output/tvb
-zip -r ${OUTPUT_FOLDER}/figs.zip /home/submitter/data/TVB1/output/figs
-zip -r ${OUTPUT_FOLDER}/configs.zip /home/submitter/data/TVB1/configs
-zip -r ${OUTPUT_FOLDER}/pegasus_logs.zip /home/submitter/pegasus/submit/scu/pegasus/TVB-PIPELINE/run0001
+zip -j ${OUTPUT_FOLDER}/tvb.zip /home/submitter/data/TVB1/output/tvb
+zip -j ${OUTPUT_FOLDER}/figs.zip /home/submitter/data/TVB1/output/figs
+zip -j ${OUTPUT_FOLDER}/configs.zip /home/submitter/data/TVB1/configs
+zip -j ${OUTPUT_FOLDER}/pegasus_logs.zip /home/submitter/pegasus/submit/scu/pegasus/TVB-PIPELINE/run0001
